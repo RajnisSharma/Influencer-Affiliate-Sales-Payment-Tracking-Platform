@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import api from '../services/api';
 import { ShoppingCart, Filter, CheckCircle, XCircle, Clock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const Sales = () => {
+  const location = useLocation();
   const { isAdmin, isInfluencer } = useAuth();
   const [sales, setSales] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [statusFilter, setStatusFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState(location.state?.filter || '');
 
   useEffect(() => {
     fetchSales();

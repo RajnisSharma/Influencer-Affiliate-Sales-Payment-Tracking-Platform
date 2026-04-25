@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import {
@@ -15,6 +16,7 @@ import {
 } from 'recharts';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const { user, isAdmin } = useAuth();
   const [stats, setStats] = useState(null);
   const [salesData, setSalesData] = useState([]);
@@ -212,7 +214,10 @@ const Dashboard = () => {
               There are pending commissions waiting for approval
             </p>
           </div>
-          <button className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors">
+          <button
+            onClick={() => navigate('/sales', { state: { filter: 'pending' } })}
+            className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+          >
             Review
           </button>
         </div>
