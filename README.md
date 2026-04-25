@@ -41,8 +41,39 @@ A full-stack web application for tracking influencer-driven affiliate sales, man
 - Node.js 16+
 - PostgreSQL (optional, SQLite works for development)
 
-### Backend Setup
+### Option 1: Automated Setup (Recommended)
 
+We provide automated setup scripts to get you started quickly.
+
+**Cross-platform (Windows/Linux/Mac):**
+```bash
+python setup.py
+```
+
+**Windows only (Batch file):**
+```cmd
+start.bat
+```
+
+**What these scripts do:**
+1. Create Python virtual environment (`venv/`)
+2. Install backend dependencies
+3. Run Django database migrations
+4. Create demo users (admin, influencer, finance)
+5. Install frontend dependencies (`setup.py` only)
+
+**After automated setup, start the servers:**
+```bash
+# Terminal 1 - Backend
+cd backend && ..\venv\Scripts\python manage.py runserver
+
+# Terminal 2 - Frontend
+cd frontend && npm start
+```
+
+### Option 2: Manual Setup
+
+**Backend Setup:**
 ```bash
 # Create virtual environment
 python -m venv venv
@@ -62,8 +93,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-### Frontend Setup
-
+**Frontend Setup:**
 ```bash
 cd frontend
 npm install
@@ -71,6 +101,25 @@ npm start
 ```
 
 The app will be available at `http://localhost:3000`
+
+### Demo Data Generation (Optional)
+
+To generate comprehensive AI-ready demo data with 120 days of realistic sales, clicks, and payments:
+
+```bash
+cd backend
+..\venv\Scripts\python demo_data.py
+```
+
+**What it creates:**
+- 4 marketing campaigns (Summer Sale, Back to School, Holiday Special, New Year Launch)
+- 8 influencers with different performance profiles (top performer, tech, fitness, food, travel, gaming, beauty, declining)
+- 13,000+ clicks with realistic IP patterns (for fraud detection testing)
+- 2,500+ sales with various commission statuses
+- Payment history and bank accounts
+- Admin and Finance users
+
+**Use case:** Essential for testing AI analytics features (sales prediction, fraud detection, performance insights).
 
 ### Environment Variables
 
@@ -144,11 +193,28 @@ GROQ_API_KEY=your-groq-api-key
 
 ## Demo Credentials
 
+### Basic Setup (setup.py / start.bat)
+
 | Role | Email | Password |
 |------|-------|----------|
 | Admin | admin@example.com | admin123 |
 | Influencer | influencer@example.com | inf123 |
 | Finance | finance@example.com | fin123 |
+
+### Demo Data Setup (demo_data.py)
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | admin@sherlock.com | admin123 |
+| Finance | finance@sherlock.com | finance123 |
+| Influencer (Fashion) | alice@demo.com | demo123 |
+| Influencer (Tech) | bob@demo.com | demo123 |
+| Influencer (Fitness) | carol@demo.com | demo123 |
+| Influencer (Food) | dave@demo.com | demo123 |
+| Influencer (Travel) | eve@demo.com | demo123 |
+| Influencer (Gaming) | frank@demo.com | demo123 |
+| Influencer (Beauty) | grace@demo.com | demo123 |
+| Influencer (Music) | henry@demo.com | demo123 |
 
 ## AI Features Details
 
@@ -193,6 +259,7 @@ Detects:
 │   │   ├── models.py (Payment, BankAccount)
 │   │   ├── views.py
 │   │   └── urls.py
+│   ├── demo_data.py       # Demo data generator (8 influencers, 120 days of data)
 │   └── manage.py
 ├── frontend/
 │   ├── public/
@@ -203,9 +270,19 @@ Detects:
 │   │   ├── App.js
 │   │   └── index.js
 │   └── package.json
+├── setup.py               # Cross-platform automated setup script
+├── start.bat              # Windows-only quick setup script
 ├── requirements.txt
 └── README.md
 ```
+
+### Setup Files Explained
+
+| File | Purpose | Platform | Creates Demo Data |
+|------|---------|----------|-------------------|
+| `setup.py` | Automated setup: venv, dependencies, migrations, basic users, frontend deps | All (Win/Linux/Mac) | No |
+| `start.bat` | Quick Windows setup: venv, dependencies, migrations, users | Windows only | No |
+| `demo_data.py` | Comprehensive demo data: 8 influencers, 120 days of sales/clicks/payments | All (run in backend/) | Yes |
 
 ## Deployment
 
